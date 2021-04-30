@@ -45,3 +45,6 @@ app.*.map.json
 
 # Lock file
 pubspec.lock
+
+# Secrets
+config.json
