@@ -18,6 +18,7 @@ class App extends StatelessWidget {
         accentColor: COLOR_PRODUCT,
         scaffoldBackgroundColor: COLOR_BACKGROUND,
         appBarTheme: AppBarTheme(
+          centerTitle: true,
           elevation: 0.0,
         ),
       ),
