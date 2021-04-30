@@ -1,4 +1,5 @@
 import 'package:c2sgithub/ui/screens/home.screen.dart';
+import 'package:c2sgithub/utils/constants/color.const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,7 +13,14 @@ class App extends StatelessWidget {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
+      theme: ThemeData(
+        primaryColor: COLOR_PRODUCT,
+        accentColor: COLOR_PRODUCT,
+        scaffoldBackgroundColor: COLOR_BACKGROUND,
+        appBarTheme: AppBarTheme(
+          elevation: 0.0,
+        ),
+      ),
       initialRoute: HomeScreen.ROUTE_NAME,
       routes: {
         HomeScreen.ROUTE_NAME: (_) => HomeScreen(),
