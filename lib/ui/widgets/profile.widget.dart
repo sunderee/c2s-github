@@ -72,7 +72,7 @@ class ProfileWidget extends StatelessWidget {
           ContactWidget(
             company: 'IPM Group',
             location: 'Ljubljana, Slovenia',
-            website: 'sunderee.github.io',
+            website: 'https://sunderee.github.io',
           ),
         ],
       );

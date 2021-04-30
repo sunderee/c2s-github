@@ -62,10 +62,10 @@ class ContactWidget extends StatelessWidget {
                   SizedBox(width: 4.0),
                   GestureDetector(
                     onTap: () async {
-                      final isLaunchable = await canLaunch(website!);
-                      if (isLaunchable) {
+                      try {
                         await launch(website!);
-                      } else {
+                      } catch (e) {
+                        print(e);
                         ScaffoldMessenger.maybeOf(context)?.showSnackBar(
                           SnackBar(
                             content: Text('Could not open the link'),
