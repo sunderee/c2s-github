@@ -1,4 +1,4 @@
-const String PROFILE_QUERY = r'''
+final String profileQuery = r'''
 query {
     viewer {
         name
@@ -14,6 +14,28 @@ query {
         following { totalCount }
 
         repositories { totalCount }
+    }
+}
+''';
+
+String repositoriesQuery(int count) => '''
+query {
+    viewer {
+        repositories(first: $count) {
+            nodes {
+                name
+                description
+
+                url
+                isPrivate
+                primaryLanguage {
+                    color
+                    name
+                }
+
+                stargazerCount
+            }
+        }
     }
 }
 ''';

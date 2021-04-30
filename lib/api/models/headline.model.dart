@@ -13,7 +13,7 @@ class HeadlineModel extends Equatable {
   final int? followers;
   final int? following;
 
-  HeadlineModel._({
+  const HeadlineModel._({
     this.avatarURL,
     this.fullName,
     this.username,

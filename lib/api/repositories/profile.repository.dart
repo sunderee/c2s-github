@@ -30,12 +30,12 @@ Future<Pair<HeadlineModel, int>?> _parseFetchProfile(Uri uri) async {
   final provider = ApiProvider(uri);
   final authToken = await loadToken();
   if (authToken != null) {
-    final raw_result = await provider.makeGraphQLRequest(
-      formatQuery(PROFILE_QUERY),
+    final rawResult = await provider.makeGraphQLRequest(
+      formatQuery(profileQuery),
       authToken,
     );
-    if (raw_result != null) {
-      final result = json.decode(raw_result) as Map<String, dynamic>;
+    if (rawResult != null) {
+      final result = json.decode(rawResult) as Map<String, dynamic>;
       final headline = HeadlineModel.fromJson(result);
       return Pair(
         headline,
