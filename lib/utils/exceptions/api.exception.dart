@@ -4,4 +4,7 @@ class ApiException implements Exception {
   final String message;
 
   const ApiException(this.statusCode, this.rawBody, this.message);
+
+  @override
+  String toString() => '$message\nStatus: $statusCode\n$rawBody';
 }

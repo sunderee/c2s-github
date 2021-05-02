@@ -1,8 +1,5 @@
 import 'package:c2sgithub/api/models/headline.model.dart';
 import 'package:c2sgithub/api/models/repo.model.dart';
-import 'package:c2sgithub/redux/actions/api.action.dart';
-import 'package:c2sgithub/redux/middleware/api.middleware.dart';
-import 'package:c2sgithub/redux/reducers/api.reducer.dart';
 import 'package:c2sgithub/redux/states/api.state.dart';
 import 'package:c2sgithub/ui/widgets/profile.widget.dart';
 import 'package:c2sgithub/utils/tuple.dart';
@@ -10,11 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String ROUTE_NAME = '/';
-
   @override
   Widget build(BuildContext context) {
-    StoreProvider.of<ApiState>(context).dispatch(ApiAction.retrieveProfile());
     return Scaffold(
       appBar: AppBar(
         title: Text('C2SGitHub'),
@@ -70,6 +64,5 @@ class HomeScreen extends StatelessWidget {
 
 class _HomeScreenViewModel {
   final ApiState state;
-
   const _HomeScreenViewModel(this.state);
 }

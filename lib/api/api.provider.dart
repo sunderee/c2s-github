@@ -26,7 +26,7 @@ class ApiProvider {
     throw ApiException(
       response.statusCode,
       rawBody,
-      'Query could not have been made',
+      'GraphQL query failed',
     );
   }
 }

@@ -56,7 +56,8 @@ Future<Pair<List<RepoModel>, int>?> _parseFetchRepositories(
           .map((element) => RepoModel.fromJson(element))
           .toList();
       return Pair(repositories, stars);
-    } on ApiException {
+    } on ApiException catch (e) {
+      print(e.toString());
       return null;
     }
   }

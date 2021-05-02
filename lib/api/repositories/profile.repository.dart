@@ -48,7 +48,8 @@ Future<Pair<HeadlineModel, int>?> _parseFetchProfile(Uri uri) async {
         headline,
         result['data']['viewer']['repositories']['totalCount'] as int,
       );
-    } on ApiException {
+    } on ApiException catch (e) {
+      print(e.toString());
       return null;
     }
   }

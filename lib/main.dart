@@ -1,3 +1,4 @@
+import 'package:c2sgithub/redux/actions/api.action.dart';
 import 'package:c2sgithub/redux/middleware/api.middleware.dart';
 import 'package:c2sgithub/redux/reducers/api.reducer.dart';
 import 'package:c2sgithub/redux/states/api.state.dart';
@@ -7,12 +8,13 @@ import 'package:redux/redux.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final store = Store<ApiState>(
-    apiReducer,
-    initialState: ApiState.loading(),
-    middleware: [ApiMiddleware()],
+  runApp(
+    App(
+      store: Store<ApiState>(
+        apiReducer,
+        initialState: ApiState.loading(),
+        middleware: [ApiMiddleware()],
+      ).dispatch(ApiAction.retrieveProfile()),
+    ),
   );
-  runApp(App(
-    store: store,
-  ));
 }
