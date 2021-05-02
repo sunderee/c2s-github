@@ -4,13 +4,14 @@ import 'package:c2sgithub/api/api.provider.dart';
 import 'package:c2sgithub/api/models/headline.model.dart';
 import 'package:c2sgithub/utils/constants/graphql.const.dart';
 import 'package:c2sgithub/utils/exceptions/api.exception.dart';
+import 'package:c2sgithub/utils/exceptions/repository.exception.dart';
 import 'package:c2sgithub/utils/helpers/config.helper.dart';
 import 'package:c2sgithub/utils/helpers/format_query.helper.dart';
 import 'package:c2sgithub/utils/tuple.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class _IProfileRepository {
-  Future<Pair<HeadlineModel, int>?> fetchProfile();
+  Future<Pair<HeadlineModel, int>> fetchProfile();
 }
 
 class ProfileRepository implements _IProfileRepository {
@@ -20,11 +21,16 @@ class ProfileRepository implements _IProfileRepository {
   factory ProfileRepository.instance() => _instance;
 
   @override
-  Future<Pair<HeadlineModel, int>?> fetchProfile() async =>
-      compute<Uri, Pair<HeadlineModel, int>?>(
-        _parseFetchProfile,
-        Uri.https('api.github.com', 'graphql'),
-      );
+  Future<Pair<HeadlineModel, int>> fetchProfile() async {
+    final result = await compute<Uri, Pair<HeadlineModel, int>?>(
+      _parseFetchProfile,
+      Uri.https('api.github.com', 'graphql'),
+    );
+    if (result != null) {
+      return result;
+    }
+    throw RepositoryException('Could not have retrieved profile headline');
+  }
 }
 
 Future<Pair<HeadlineModel, int>?> _parseFetchProfile(Uri uri) async {
