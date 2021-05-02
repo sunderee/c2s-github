@@ -10,9 +10,10 @@ class ApiProvider {
   ApiProvider(this.baseURL);
 
   Future<String> makeGraphQLRequest(String query, String authToken) async {
-    final request = await _client.getUrl(baseURL)
+    final request = await _client.postUrl(baseURL)
       ..headers.contentType = ContentType.json
-      ..headers.add(HttpHeaders.authorizationHeader, 'Bearer $authToken');
+      ..headers.add(HttpHeaders.authorizationHeader, 'Bearer $authToken')
+      ..write(json.encode({'query': query}));
     final response = await request.close();
 
     if (response.statusCode == 200) {
