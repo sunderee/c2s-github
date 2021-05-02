@@ -1,5 +1,6 @@
 import 'package:c2sgithub/api/models/headline.model.dart';
 import 'package:c2sgithub/api/models/repo.model.dart';
+import 'package:c2sgithub/redux/actions/api.action.dart';
 import 'package:c2sgithub/redux/states/api.state.dart';
 import 'package:c2sgithub/ui/widgets/profile.widget.dart';
 import 'package:c2sgithub/utils/tuple.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: StoreConnector<ApiState, _HomeScreenViewModel>(
         converter: (store) => _HomeScreenViewModel(store.state),
-        builder: (BuildContext cntx, _HomeScreenViewModel viewModel) {
+        builder: (_, _HomeScreenViewModel viewModel) {
           if (viewModel.state is LoadingApiState) {
             return Center(
               child: CircularProgressIndicator(),
@@ -57,6 +58,12 @@ class HomeScreen extends StatelessWidget {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Reload'),
+        icon: Icon(Icons.refresh),
+        onPressed: () => StoreProvider.of<ApiState>(context)
+            .dispatch(ApiAction.retrieveProfile()),
       ),
     );
   }

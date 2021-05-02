@@ -14,7 +14,7 @@ void main() {
         apiReducer,
         initialState: ApiState.loading(),
         middleware: [ApiMiddleware()],
-      ).dispatch(ApiAction.retrieveProfile()),
+      )..dispatch(ApiAction.retrieveProfile()),
     ),
   );
 }

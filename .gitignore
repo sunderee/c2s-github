@@ -47,4 +47,4 @@ app.*.map.json
 pubspec.lock
 
 # Secrets
-config.json
+config.dart
