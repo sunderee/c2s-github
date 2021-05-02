@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:c2sgithub/api/api.provider.dart';
 import 'package:c2sgithub/api/models/headline.model.dart';
 import 'package:c2sgithub/utils/constants/graphql.const.dart';
+import 'package:c2sgithub/utils/exceptions/api.exception.dart';
 import 'package:c2sgithub/utils/helpers/config.helper.dart';
 import 'package:c2sgithub/utils/helpers/format_query.helper.dart';
 import 'package:c2sgithub/utils/tuple.dart';
@@ -30,19 +31,20 @@ Future<Pair<HeadlineModel, int>?> _parseFetchProfile(Uri uri) async {
   final provider = ApiProvider(uri);
   final authToken = await loadToken();
   if (authToken != null) {
-    final rawResult = await provider.makeGraphQLRequest(
-      formatQuery(profileQuery),
-      authToken,
-    );
-    if (rawResult != null) {
+    try {
+      final rawResult = await provider.makeGraphQLRequest(
+        formatQuery(profileQuery),
+        authToken,
+      );
       final result = json.decode(rawResult) as Map<String, dynamic>;
       final headline = HeadlineModel.fromJson(result);
       return Pair(
         headline,
         result['data']['viewer']['repositories']['totalCount'] as int,
       );
+    } on ApiException {
+      return null;
     }
-    return null;
   }
   return null;
 }

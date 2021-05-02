@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-abstract class State<T extends Object, E extends Exception> {
+abstract class State<T extends Object> {
   @internal
   @protected
   final T? data;
@@ -11,7 +11,7 @@ abstract class State<T extends Object, E extends Exception> {
 
   @internal
   @protected
-  final E? exception;
+  final String? exception;
 
   State({
     this.data,

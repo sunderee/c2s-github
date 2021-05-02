@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:c2sgithub/api/api.provider.dart';
 import 'package:c2sgithub/api/models/repo.model.dart';
 import 'package:c2sgithub/utils/constants/graphql.const.dart';
+import 'package:c2sgithub/utils/exceptions/api.exception.dart';
 import 'package:c2sgithub/utils/helpers/config.helper.dart';
 import 'package:c2sgithub/utils/helpers/format_query.helper.dart';
 import 'package:c2sgithub/utils/tuple.dart';
@@ -32,11 +33,11 @@ Future<Pair<List<RepoModel>, int>?> _parseFetchRepositories(
   final provider = ApiProvider(data.first);
   final authToken = await loadToken();
   if (authToken != null) {
-    final rawResult = await provider.makeGraphQLRequest(
-      formatQuery(repositoriesQuery(data.second)),
-      authToken,
-    );
-    if (rawResult != null) {
+    try {
+      final rawResult = await provider.makeGraphQLRequest(
+        formatQuery(repositoriesQuery(data.second)),
+        authToken,
+      );
       final result = json.decode(rawResult) as Map<String, dynamic>;
       final raw_repositories =
           (result['data']['viewer']['repositories']['nodes'] as List<dynamic>)
@@ -49,8 +50,9 @@ Future<Pair<List<RepoModel>, int>?> _parseFetchRepositories(
           .map((element) => RepoModel.fromJson(element))
           .toList();
       return Pair(repositories, stars);
+    } on ApiException {
+      return null;
     }
-    return null;
   }
   return null;
 }
