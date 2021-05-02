@@ -14,7 +14,6 @@ class ApiMiddleware implements MiddlewareClass<ApiState> {
 
   @override
   void call(Store<ApiState> store, dynamic action, NextDispatcher next) {
-    action = action as ApiAction;
     if (action is LoadingApiAction) {
       store.dispatch(ApiAction.loading());
     } else if (action is ErrorApiAction) {
@@ -34,9 +33,9 @@ class ApiMiddleware implements MiddlewareClass<ApiState> {
                 ..dispatch(ApiState.error(
                   error.message,
                 ))))
-          .catchError((RepositoryException error) => store
+          .catchError((error) => store
             ..dispatch(ApiState.error(
-              error.message,
+              error.toString(),
             )));
     } else {
       store.dispatch(ApiAction.error('Unknown action: ${action.runtimeType}'));

@@ -8,20 +8,13 @@ import 'package:c2sgithub/ui/widgets/profile.widget.dart';
 import 'package:c2sgithub/utils/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/';
 
   @override
   Widget build(BuildContext context) {
-    final store = Store<ApiState>(
-      apiReducer,
-      initialState: ApiState.loading(),
-      middleware: [ApiMiddleware()],
-    );
-
-    StoreProvider.of(context).dispatch(ApiAction.retrieveProfile());
+    StoreProvider.of<ApiState>(context).dispatch(ApiAction.retrieveProfile());
     return Scaffold(
       appBar: AppBar(
         title: Text('C2SGitHub'),
