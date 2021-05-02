@@ -10,12 +10,9 @@ abstract class ApiState {
 
   factory ApiState.loading() = LoadingApiState;
   factory ApiState.error(String error) = ErrorApiState;
-  factory ApiState.headline(
-    Pair<HeadlineModel, int> data,
-  ) = SuccessfulHeadlineState;
-  factory ApiState.repositories(
-    Pair<List<RepoModel>, int> data,
-  ) = SuccessfulRepositoriesState;
+  factory ApiState.successful(
+    Triple<HeadlineModel, List<RepoModel>, int> data,
+  ) = SuccessfulApiState;
 }
 
 class LoadingApiState extends ApiState implements State {
@@ -46,8 +43,8 @@ class ErrorApiState extends ApiState implements State {
   const ErrorApiState(this._error) : super._();
 }
 
-class SuccessfulHeadlineState extends ApiState implements State {
-  final Pair<HeadlineModel, int> _data;
+class SuccessfulApiState extends ApiState implements State {
+  final Triple<HeadlineModel, List<RepoModel>, int> _data;
 
   @override
   Object? get data => _data;
@@ -58,20 +55,5 @@ class SuccessfulHeadlineState extends ApiState implements State {
   @override
   bool get isLoading => false;
 
-  const SuccessfulHeadlineState(this._data) : super._();
-}
-
-class SuccessfulRepositoriesState extends ApiState implements State {
-  final Pair<List<RepoModel>, int> _data;
-
-  @override
-  Object? get data => _data;
-
-  @override
-  String? get exception => null;
-
-  @override
-  bool get isLoading => false;
-
-  const SuccessfulRepositoriesState(this._data) : super._();
+  const SuccessfulApiState(this._data) : super._();
 }
