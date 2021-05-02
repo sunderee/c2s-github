@@ -4,12 +4,10 @@ Lightweight proof-of-concept GitHub application clone, showcasing Redux as a sta
 
 ## Usage
 
-Create `config.json` in assets folder that holds your GitHub personal access token
+Create `config.dart` in `lib/utils/constants` that holds your GitHub personal access token
 
-```json
-{
-    "github_token": "XXX"
-}
+```dart
+const String GITHUB_TOKEN = 'XXX';
 ```
 
 then install dependencies and run the app `flutter pub get && flutter run`.
