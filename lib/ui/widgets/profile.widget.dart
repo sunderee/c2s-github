@@ -8,6 +8,12 @@ class ProfileWidget extends StatelessWidget {
   final String fullName;
   final String username;
   final String bio;
+  final int followers;
+  final int following;
+  final int stars;
+  final String? company;
+  final String? location;
+  final String? website;
 
   const ProfileWidget({
     Key? key,
@@ -15,6 +21,12 @@ class ProfileWidget extends StatelessWidget {
     required this.fullName,
     required this.username,
     required this.bio,
+    required this.followers,
+    required this.following,
+    required this.stars,
+    required this.company,
+    required this.location,
+    required this.website,
   }) : super(key: key);
 
   @override
@@ -64,9 +76,9 @@ class ProfileWidget extends StatelessWidget {
           ),
           SizedBox(height: 8.0),
           SocialsWidget(
-            followers: 4,
-            following: 3,
-            stars: 35,
+            followers: followers,
+            following: following,
+            stars: stars,
           ),
           SizedBox(height: 8.0),
           ContactWidget(
