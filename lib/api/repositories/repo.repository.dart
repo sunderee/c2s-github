@@ -47,13 +47,12 @@ Future<Pair<List<RepoModel>, int>?> _parseFetchRepositories(
     final raw_repositories =
         (result['data']['viewer']['repositories']['nodes'] as List<dynamic>)
             .cast<Map<String, dynamic>>();
+    final repositories = raw_repositories
+        .map((Map<String, dynamic> element) => RepoModel.fromJson(element))
+        .toList();
     final stars = raw_repositories
         .map((element) => element['stargazerCount'] as int)
         .reduce((value, element) => value + element);
-    final repositories = raw_repositories
-        .where((element) => element['isPrivate'])
-        .map((element) => RepoModel.fromJson(element))
-        .toList();
     return Pair(repositories, stars);
   } on ApiException catch (e) {
     print(e.toString());
