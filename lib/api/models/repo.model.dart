@@ -20,7 +20,11 @@ class RepoModel {
         title: json['name'],
         description: json['description'],
         url: json['url'],
-        languageCode: json['primaryLanguage']['color'],
-        language: json['primaryLanguage']['name'],
+        languageCode: json['primaryLanguage'] != null
+            ? json['primaryLanguage']['color']
+            : '#000000',
+        language: json['primaryLanguage'] != null
+            ? json['primaryLanguage']['name']
+            : '#000000',
       );
 }
