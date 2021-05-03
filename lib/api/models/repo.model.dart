@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class RepoModel {
+class RepoModel extends Equatable {
   final String? title;
   final String? description;
   final String? url;
@@ -27,4 +28,13 @@ class RepoModel {
             ? json['primaryLanguage']['name']
             : '#000000',
       );
+
+  @override
+  List<Object?> get props => [
+        title,
+        description,
+        url,
+        languageCode,
+        language,
+      ];
 }
